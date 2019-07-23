@@ -1,13 +1,28 @@
 diff --git a/src/Driver/DrushRouter.php b/src/Driver/DrushRouter.php
-index a555524..9b770cf 100644
+index a555524..ae62975 100644
 --- a/src/Driver/DrushRouter.php
 +++ b/src/Driver/DrushRouter.php
-@@ -32,7 +32,7 @@ class DrushRouter {
+@@ -31,21 +31,9 @@ class DrushRouter {
+   public static function createFromTarget(TargetInterface $target, $options = [])
    {
      try {
++      $binary = '/app/vendor/drush/drush/drush';
        $info = $target->getOptions();
 -      $launchers = ['drush-launcher', 'drush.launcher', 'drush'];
-+      $launchers = ['drush'];
-       $binary = 'which ' . implode(' || which ', $launchers);
- 
-       $info = trim($target->exec('$(' . $binary . ') -r ' . $info['root'] . ' status --format=json'));
+-      $binary = 'which ' . implode(' || which ', $launchers);
+-
+-      $info = trim($target->exec('$(' . $binary . ') -r ' . $info['root'] . ' status --format=json'));
+-      $info = \Drutiny\Utility::jsonDecodeDirty($info, TRUE);
+-
+-      // Hack for Acquia Cloud to force use drush9 if drush version reported is v9.
+-      if (Comparator::greaterThanOrEqualTo($info['drush-version'], '9.0.0')) {
+-        array_unshift($launchers, 'drush9');
+-        $binary = 'which ' . implode(' || which ', $launchers);
+-      }
+-
+-      $binary = trim($target->exec($binary));
+-      $info = trim($target->exec($binary . ' -r ' . $info['root'] . ' status --format=json'));
++      $info = $target->exec($binary . ' -r ' . $info['root'] . ' status --format=json');
+       $info = json_decode($info, TRUE);
+     }
+     catch (ProcessFailedException $e) {
