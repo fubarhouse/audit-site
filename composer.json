@@ -10,6 +10,7 @@
   ],
   "require": {
     "php": "^7.1.0",
+    "cweagans/composer-patches": "~1.0",
     "drutiny/drutiny": "2.3.3",
     "drutiny/http": "2.5",
     "drutiny/plugin-drupal-7": "2.2",
@@ -20,6 +21,13 @@
           "Drutiny\\GovCMS\\": "src/",
           "DrutinyTests\\GovCMS\\": "tests/src/"
       }
+  },
+  "extra": {
+    "patches": {
+      "drutiny/drutiny": {
+        "Remove Drush Launcher discovery": "patches/drutiny.patch"
+      }
+    }
   },
   "bin": ["audit"],
   "scripts": {
