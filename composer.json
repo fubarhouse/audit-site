@@ -25,7 +25,7 @@
   "extra": {
     "patches": {
       "drutiny/drutiny": {
-        "Remove Drush Launcher discovery": "patches/drutiny.patch"
+        "Use fixed path to Drush when the remote uses Drush 9": "patches/drutiny.patch"
       }
     }
   },
