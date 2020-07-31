@@ -4,8 +4,11 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
+    command: drutiny audit:list
     volumes_from:
       - container:amazeeio-ssh-agent
+    volumes:
+      - $HOME/.drush:/home/.drush
     networks:
       - default
       - amazeeio-network

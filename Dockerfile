@@ -13,4 +13,11 @@ COPY . /drutiny
 WORKDIR /drutiny
 RUN /app/composer.phar install
 
-ENTRYPOINT ["/drutiny/vendor/bin/drutiny"]
+# Install Drush
+RUN /app/composer.phar require drush/drush:^8
+
+# Add composer bin to environment.
+ENV PATH=$PATH:/drutiny/vendor/bin
+
+# Command when none provided.
+CMD "/drutiny/vendor/bin/drutiny"
