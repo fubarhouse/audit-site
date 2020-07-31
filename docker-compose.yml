@@ -1,0 +1,14 @@
+version: '2'
+services:
+  drutiny:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes_from:
+      - container:amazeeio-ssh-agent
+    networks:
+      - default
+      - amazeeio-network
+networks:
+  amazeeio-network:
+    external: true
